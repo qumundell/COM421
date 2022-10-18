@@ -17,7 +17,7 @@ class Queue:
             return item
 
     def add(self, new_item):
-        if  self.current_size == len(self.internalArray):
+        if self.current_size == len(self.internalArray):
             return "The given command was not possible due to an excess of objects in the queue"
         else:
             self.internalArray[self.end] = new_item
@@ -30,11 +30,16 @@ class Queue:
             return "The given command has been executed"
 
     def __str__(self):
-        return f"{self.internalArray.__str__()}\nStarting at: {self.front}\nEnding at: {self.end}"
+        return f"{self.internalArray.__str__()}\nStarting at: {self.front}\nEnding at: {self.end - 1}"
 
 
 q1 = Queue(5)
 q1.add("h")
 q1.add("a")
 q1.add("ha")
+q1.remove()
+q1.add("YES")
+q1.add("numero 5")
+q1.remove()
+q1.add("haha")
 print(q1)
