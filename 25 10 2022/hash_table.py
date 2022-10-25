@@ -31,7 +31,7 @@ class HashTable:
         return self.internalArray.__str__()
 
 
-ht = HashTable(10)
+ht = HashTable(127)
 ht.put("Hello", "I said Hello")
 ht.put("dog", "Woof")
 ht.put("eat", "Yummy")
