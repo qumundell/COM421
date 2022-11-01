@@ -7,13 +7,12 @@ class HashTable:
         bucket_index = total_key % len(self.internalArray)
         original_index = bucket_index
         done = False
+        count = 0
         while done is False:
-            emptycheck = self.check_index_X(bucket_index,[])
-            if emptycheck is True:
-                emptycheck = False
+            if self.internalArray[bucket_index] == []:
+                pass
             else:
-                # find out how to determine whether the key is correct, everything else is good
-                if self.internalArray[bucket_index] == key:
+                if (self.internalArray[bucket_index])[0][0] == key:
                     done = True
 
             if done is True:
@@ -25,9 +24,9 @@ class HashTable:
             else:
                 bucket_index += 1
 
-            if bucket_index == original_index:
+            if bucket_index == original_index and count >= 1:
                 return "The specified key is not in this hash table"
-
+            count += 1
         return self.internalArray[bucket_index]
 
     def put(self, key, value):
