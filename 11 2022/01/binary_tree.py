@@ -37,10 +37,6 @@ class BinaryTree:
 
 
 bt = BinaryTree()
-bt.insert(20)
-bt.insert(16)
-bt.insert(25)
-bt.insert(23)
-bt.insert(33)
-bt.insert(1)
+for i in [20, 16, 25, 23, 33, 1]:
+    bt.insert(i)
 bt.print_from()
