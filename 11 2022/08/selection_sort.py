@@ -2,7 +2,7 @@ def sort(nums):
     lownum = None
     lowindex = None
     for i in range(len(nums)):
-        for j in range(len(nums) - 1,i, -1):
+        for j in range(len(nums) - 1,i - 1, -1):
             if lownum is None:
                 lownum = nums[j]
                 lowindex = j
