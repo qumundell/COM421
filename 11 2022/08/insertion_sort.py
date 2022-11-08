@@ -6,8 +6,7 @@ def sort(nums, divider=0):
         tempval = nums[divider]
         nums[divider] = nums[divider - 1]
         nums[divider - 1] = tempval
-        for i in range(divider):
-            sort(nums, i)
+        sort(nums)
 
     if divider != len(nums) - 1:
         sort(nums, divider + 1)
