@@ -12,10 +12,8 @@ def binary_search(list, toFind):
             return True
         elif list[midpoint] < toFind:
             lowBound = midpoint + 1
-            print(f"lowBound is {lowBound}")
         else:
             highBound = midpoint - 1
-            print(f"highBound is {highBound}")
 
 
 numbers = [i*i for i in range(1, 101)]
