@@ -12,6 +12,6 @@ def sort(nums, divider=0):
         sort(nums, divider + 1)
 
 
-list = [17, 6, 23, 4, 28, 30, 54, 28, 83, 7]
+list = [13,	82,	88,	46,	34,	28,	96, 78, 34,	79,	37,	55,	63,	82,	24,	49,	79,	58, 1]
 sort(list)
 print(list)
