@@ -9,6 +9,7 @@ def binary_search(list, toFind):
         if list[midpoint] == toFind:
             lowBound = highBound
             print(f"Your number is the square number of {midpoint + 1}")
+            return True
         elif list[midpoint] < toFind:
             lowBound = midpoint + 1
             print(f"lowBound is {lowBound}")
@@ -19,5 +20,6 @@ def binary_search(list, toFind):
 
 numbers = [i*i for i in range(1, 101)]
 toFind = int(input("Which number do you want to find the root of?"))
-binary_search(numbers, toFind)
+if binary_search(numbers, toFind) is not True:
+    print("Your number is not a square number")
 
