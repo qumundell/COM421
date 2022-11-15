@@ -43,6 +43,8 @@ class Queue:
         self.front = 0
         self.current_size = 0
 
+    def cur_front(self):
+        return self.internalArray[self.front]
     def remove(self):
         if self.current_size == 0:
             return "The given command was not possible due to a lack of objects in the queue"
@@ -51,7 +53,6 @@ class Queue:
             self.internalArray[self.front] = None
             self.front += 1
             self.current_size -= 1
-            print("The given command has been executed")
             return item
 
     def add(self, new_item):
@@ -72,10 +73,33 @@ class Queue:
 
 
 def breadthFirstSearch(tree, toFind):
-    pass
+    done = False
+    qu = Queue(20)
+    qu.add(tree.root)
+    while done is False:
+        if tree.root.value == None:
+            done = True
+            print("The given tree is empty")
+        elif qu.cur_front() is None:
+            done = True
+            print("The item to find does not exist")
+        else:
+            if qu.cur_front() is None:
+                done = True
+                print("The item to find does not exist")
+            if qu.cur_front().left is not None:
+                qu.add(qu.cur_front().left)
+            if qu.cur_front().right is not None:
+                qu.add(qu.cur_front().right)
+            if qu.cur_front().value == toFind:
+                done = True
+                print("The item to find is in the list")
+            qu.remove()
 
-bt = BinaryTree
+
+bt = BinaryTree()
 for val in [32,53,21,12,23,54,23,13,42]:
     bt.insert(val)
 
-breadthFirstSearch(bt, 13)
+userInput = int(input("What number would you want to check for in the list?"))
+breadthFirstSearch(bt, userInput )
