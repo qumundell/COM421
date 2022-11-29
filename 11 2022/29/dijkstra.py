@@ -9,6 +9,7 @@ class Node:
         self.edges = []
         self.parent = None
         self.used = False
+        self.is_on_open_list = False
 
     def connect_edge(self, edge):
         self.edges.append(edge)
@@ -19,12 +20,20 @@ class Node:
     def get_name(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
+    def __lt__(self, other):
+        return self.name < other.name
+
 class Edge:
     def __init__(self, start_node, end_node, weight):
         self.start_node = start_node
         self.end_node = end_node
         self.weight = weight
 
+    def __str__(self):
+        return f"{self.start_node} to {self.end_node}, weight: {self.weight}"
 
 class Graph:
     def __init__(self):
@@ -47,30 +56,48 @@ class Graph:
 
     def algorithm(self, search, goal):
         start_node = self.find_start(search)
-        start_node.data[0] = 0
         if start_node is None:
             print("The node you tried to start from did not exist")
         else:
+            start_node.data[0] = 0
             curNode = start_node
             done = False
-            while done is False:
+            nodecheckdone = False
+            heappush(self.openList, start_node)
+            while len(self.openList) > 0:
                 if curNode.get_name() == goal:
                     return self.print_route(curNode)
                 curNode.used = True
                 for edge in curNode.edges:
                     if edge.end_node.used == False:
+                        if curNode.data[0] + edge.weight < edge.end_node.data[0]:
+                            edge.end_node.data[0] = curNode.data[0] + edge.weight
+                            # reparenting - i.e. set the parent of the remote node to be the current node
 
-                        edge.end_node.data = [curNode.data[0] + edge.weight, edge.end_node]
-                        heappush(self.openList, edge.end_node.data)
 
-                self.openList[0][1].parent = curNode
-                curNode = self.openList[0][1]
+                        # if the remote node is not on the open list, add it to the open list
+
+
+
+
+
+
+                curNode = heappop(self.openList)[1]
 
 
 
 
     def print_route(self, node):
-        return(node)
+        done = False
+        finale = node.name
+        while done is False:
+            if node.parent == None:
+                return(finale)
+            else:
+                print(node.name)
+            node = node.parent
+
+
 
 
     def find_start(self, search):
@@ -114,7 +141,7 @@ def run():
 
     start = input("Where are you starting from?")
     goal = input("Where are you going?")
-    graph.algorithm(start,goal)
+    print(graph.algorithm(start,goal))
 
 
 run()
