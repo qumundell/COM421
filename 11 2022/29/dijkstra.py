@@ -1,5 +1,6 @@
 import sys
-
+import heapq
+from heapq import heappush, heappop
 
 class Node:
     def __init__(self, name):
@@ -15,6 +16,8 @@ class Node:
     def add_parent(self, node):
         self.parent = node
 
+    def get_name(self):
+        return self.name
 
 class Edge:
     def __init__(self, start_node, end_node, weight):
@@ -28,7 +31,7 @@ class Graph:
         self.allNodes = []
         self.openList = []
 
-    def addToallNodes(self, node):
+    def addToAllNodes(self, node):
         self.allNodes.append(node)
 
     def add_edge(self, node1, node2, dist):
@@ -38,20 +41,41 @@ class Graph:
         node1.connect_edge(forward_edge)
         node2.connect_edge(backwards_edge)
 
-    def addToopenList(self, node):
+    def addToOpenList(self, node):
         self.openList.append(node)
 
 
     def algorithm(self, search, goal):
         start_node = self.find_start(search)
+        start_node.data[0] = 0
         if start_node is None:
             print("The node you tried to start from did not exist")
         else:
-            pass
+            curNode = start_node
+            done = False
+            while done is False:
+                if curNode.get_name() == goal:
+                    return self.print_route(curNode)
+                curNode.used = True
+                for edge in curNode.edges:
+                    if edge.end_node.used == False:
+
+                        edge.end_node.data = [curNode.data[0] + edge.weight, edge.end_node]
+                        heappush(self.openList, edge.end_node.data)
+
+                self.openList[0][1].parent = curNode
+                curNode = self.openList[0][1]
+
+
+
+
+    def print_route(self, node):
+        return(node)
+
 
     def find_start(self, search):
         for i in range(len(self.allNodes)):
-            if search == self.allNodes[i].name:
+            if search == self.allNodes[i].get_name():
                 return self.allNodes[i]
         return None
 
@@ -66,14 +90,14 @@ def run():
     stuttgart = Node("Stuttgart")
     munich = Node("Munich")
 
-    graph.addToallNodes(london)
-    graph.addToallNodes(brussels)
-    graph.addToallNodes(paris)
-    graph.addToallNodes(amsterdam)
-    graph.addToallNodes(cologne)
-    graph.addToallNodes(frankfurt)
-    graph.addToallNodes(stuttgart)
-    graph.addToallNodes(munich)
+    graph.addToAllNodes(london)
+    graph.addToAllNodes(brussels)
+    graph.addToAllNodes(paris)
+    graph.addToAllNodes(amsterdam)
+    graph.addToAllNodes(cologne)
+    graph.addToAllNodes(frankfurt)
+    graph.addToAllNodes(stuttgart)
+    graph.addToAllNodes(munich)
 
     graph.add_edge(london, brussels, 370)
     graph.add_edge(london, paris, 461)
