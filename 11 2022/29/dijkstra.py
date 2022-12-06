@@ -2,6 +2,7 @@ import sys
 import heapq
 from heapq import heappush, heappop
 
+
 class Node:
     def __init__(self, name):
         self.data = [sys.maxsize, self]
@@ -57,44 +58,43 @@ class Graph:
     def algorithm(self, search, goal):
         start_node = self.find_start(search)
         if start_node is None:
-            print("The node you tried to start from did not exist")
+            return "The node you tried to start from did not exist"
         else:
             start_node.data[0] = 0
             curNode = start_node
             done = False
-            nodecheckdone = False
             heappush(self.openList, start_node)
-            while len(self.openList) > 0:
+            while len(self.openList) >= 0:
                 if curNode.get_name() == goal:
                     return self.print_route(curNode)
                 curNode.used = True
                 for edge in curNode.edges:
-                    if edge.end_node.used == False:
+                    if edge.end_node.used is not True:
                         if curNode.data[0] + edge.weight < edge.end_node.data[0]:
                             edge.end_node.data[0] = curNode.data[0] + edge.weight
                             # reparenting - i.e. set the parent of the remote node to be the current node
+                            edge.end_node.parent = curNode
 
 
                         # if the remote node is not on the open list, add it to the open list
+                        if curNode.is_on_open_list == False:
+                            heappush(self.openList, edge.end_node)
+                            curNode.is_on_open_list = True
 
-
-
-
-
-
-                curNode = heappop(self.openList)[1]
+                if len(self.openList) == 0:
+                    return "The node you were looking for did not exist"
+                curNode = heappop(self.openList)
 
 
 
 
     def print_route(self, node):
         done = False
-        finale = node.name
         while done is False:
             if node.parent == None:
-                return(finale)
+                return(node.name)
             else:
-                print(node.name)
+                print(node.name, end=" <- ")
             node = node.parent
 
 
