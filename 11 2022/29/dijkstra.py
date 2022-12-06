@@ -25,7 +25,7 @@ class Node:
         return self.name
 
     def __lt__(self, other):
-        return self.name < other.name
+        return self.data[0] < other.data[0]
 
 class Edge:
     def __init__(self, start_node, end_node, weight):
