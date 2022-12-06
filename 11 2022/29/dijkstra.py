@@ -77,12 +77,14 @@ class Graph:
 
 
                         # if the remote node is not on the open list, add it to the open list
-                        if curNode.is_on_open_list == False:
+                        if edge.end_node.is_on_open_list is False:
                             heappush(self.openList, edge.end_node)
-                            curNode.is_on_open_list = True
+                            edge.end_node.is_on_open_list = True
 
                 if len(self.openList) == 0:
                     return "The node you were looking for did not exist"
+
+                print(curNode.name)
                 curNode = heappop(self.openList)
 
 
